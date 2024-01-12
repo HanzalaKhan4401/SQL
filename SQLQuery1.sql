@@ -39,7 +39,8 @@ email varchar(255) unique,
 designation varchar(255),
 gender varchar(255),
 age varchar(255) not null,
-salary int 
+salary int ,
+FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID),
 );
 
 
@@ -59,7 +60,9 @@ VALUES
 select * from employee;
 
 select gender,sum(salary) as total_salary from employee group by (gender) with rollup;
+
 select designation,sum(salary) as Total_Salary from employee group by (designation) with rollup;
+
 select gender,designation,sum(salary) as Total_Salary from employee group by designation,gender with rollup;
 
 
@@ -77,3 +80,17 @@ VALUES
     (3, 'Finance');
 
 select * from Departments;
+
+create login rayyan with password = 'rayyan';  
+create user rayyan for login rayyan;
+
+grant select, insert, update on dbo.employee to rayyan;
+
+update employee set fname = 'Hanzala' where id = 104;
+
+delete from employee where id = 102;
+
+revoke update on dbo.employee from rayyan;
+
+deny delete on dbo.employee to rayyan; 
+
