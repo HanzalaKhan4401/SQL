@@ -94,3 +94,66 @@ revoke update on dbo.employee from rayyan;
 
 deny delete on dbo.employee to rayyan; 
 
+--scalar function without perameter
+
+create function FullName()
+returns varchar(255)
+begin
+
+return 'Hanzala Khan'
+
+end
+
+select dbo.FullName() as FullName;
+
+--scalar function with perameter
+
+create function addition(@num1 as int, @num2 as int)
+returns int
+
+begin
+
+return (@num1 + @num2)
+
+end
+
+select dbo.addition(2,4) as addition;
+
+
+--function with variable
+
+
+create function student(@age as int)
+returns varchar(255)
+as
+begin
+declare @str varchar(100)
+
+if(@age >=18)
+begin
+set @str = 'You are Eligible To Take Addmission In Aptech'
+end
+
+else
+begin
+set @str = 'You are Not Eligible'
+end
+
+return @str
+end
+
+select dbo.student(20);
+
+create function maleEmp(@gender as varchar(20))
+returns table
+as
+return select * from employee where gender = @gender
+
+select * from maleEmp('Male')
+
+alter function maleEmp()
+returns table
+as
+return select distinct designation from employee
+
+select * from maleEmp()
